@@ -1,0 +1,6 @@
+name: Action update adzans
+description: Crawl jadwalsholat.org and update adzans
+
+runs:
+  using: docker
+  image: Dockerfile

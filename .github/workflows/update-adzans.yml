@@ -1,0 +1,19 @@
+name: Workflow for update adzans
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v1
+      - name: Update adzans
+        uses: ./.github/action-update-adzans/
+        # env:
+          # JWO_MONTH: '02'
+          # JWO_YEAR: '2021'
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v4
+        with:
+          message: "[gh-actions] update adzans"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
