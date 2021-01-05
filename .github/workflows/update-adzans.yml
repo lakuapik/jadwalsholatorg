@@ -1,5 +1,9 @@
 name: Workflow for update adzans
 
+on:
+  schedule:
+    - cron: "0 0 1 * *"
+
 jobs:
   main:
     runs-on: ubuntu-latest
