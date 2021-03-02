@@ -1,15 +1,19 @@
 #!/usr/bin/env python3
 # thanks to https://beckernick.github.io/faster-web-scraping-python/
+# !!: PLEASE RUN on the base path folder, not from the script folder
+# !!: python3 script/parser.py
 
 import os
 import re
 import json
 import time
+import pytz
 import requests
 import concurrent.futures
 from lxml import html
 from datetime import datetime
 
+tz = pytz.timezone('Asia/Jakarta')
 base_url = 'https://www.jadwalsholat.org/adzan/monthly.php'
 
 def strip_lower(str):
@@ -32,10 +36,10 @@ def get_cities() :
 def get_adzans(city_id, month = '', year = '') :
 
     if  month == '' :
-        month = datetime.now().month
+        month = datetime.now(tz).month
 
     if  year == '' :
-        year = datetime.now().year
+        year = datetime.now(tz).year
 
     url = base_url + '?id={}&m={}&y={}'.format(city_id, month, year)
 
@@ -66,7 +70,7 @@ def get_adzans(city_id, month = '', year = '') :
 
 def write_file(city, adzans):
 
-    flb = fld = './../adzan/'+city+'/'
+    flb = fld = './adzan/'+city+'/'
 
     # monthly
     dt = adzans[0]['tanggal'].replace('-', '/')
@@ -90,8 +94,8 @@ def write_file(city, adzans):
 
 def process_city(name, id):
 
-    month = os.getenv('JWO_MONTH', f"{datetime.now().month:02d}")
-    year = os.getenv('JWO_YEAR', f"{datetime.now().year:02d}")
+    month = os.getenv('JWO_MONTH', f"{datetime.now(tz).month:02d}")
+    year = os.getenv('JWO_YEAR', f"{datetime.now(tz).year:02d}")
 
     write_file(name, get_adzans(id, month, year))
     print('processing ' + name + ' done')
@@ -110,7 +114,16 @@ def main():
         for future in concurrent.futures.as_completed(futures):
             pass
 
-    print('It took', time.time()-start, 'seconds.')
+    print('\n It took', time.time()-start, 'seconds.')
+
+    print("\n Current working dir:")
+    print(os.getcwd())
+
+    print("\n List dir:")
+    print(os.listdir(os.getcwd()))
+
+    print("\n Git status:")
+    print(os.system('git status'))
 
 if __name__ == "__main__":
     main()
