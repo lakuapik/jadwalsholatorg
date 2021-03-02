@@ -1,10 +1,9 @@
-FROM python:3.8-slim
+FROM python:slim
+
+RUN apt-get update; \
+    apt-get install -y git
 
 RUN pip install --no-cache-dir requests
 RUN pip install --no-cache-dir lxml
 
-COPY entrypoint /usr/local/bin/entrypoint
-COPY parser.py /tmp/parser.py
-
-RUN chmod +x /usr/local/bin/entrypoint
-ENTRYPOINT ["/usr/local/bin/entrypoint"]
+ENTRYPOINT ["python3", "./script/parser.py"]

@@ -1,7 +1,11 @@
 name: Workflow for update adzans
 
 on:
+  push:
+    branches:
+      - master
   schedule:
+    # TODO: convert UTC to GMT+7
     - cron: "0 0 1 * *"
 
 jobs:
@@ -16,7 +20,7 @@ jobs:
           # JWO_MONTH: '02'
           # JWO_YEAR: '2021'
       - name: Commit changes
-        uses: EndBug/add-and-commit@v4
+        uses: EndBug/add-and-commit@v7.0.0
         with:
           message: "[gh-actions] update adzans"
         env:
