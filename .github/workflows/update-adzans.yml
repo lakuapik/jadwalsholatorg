@@ -28,5 +28,10 @@ jobs:
           message: "[gh-actions] update adzans"
           author_name: github-actions
           author_email: 41898282+github-actions[bot]@users.noreply.github.com
+          push: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
