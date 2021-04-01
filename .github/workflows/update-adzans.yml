@@ -26,5 +26,7 @@ jobs:
         uses: EndBug/add-and-commit@v7.0.0
         with:
           message: "[gh-actions] update adzans"
+          author_name: github-actions
+          author_email: 41898282+github-actions[bot]@users.noreply.github.com
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
