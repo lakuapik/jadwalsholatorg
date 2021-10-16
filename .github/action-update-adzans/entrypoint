@@ -1,9 +1,0 @@
-#!/usr/bin/env sh
-
-month=$(printenv JWO_MONTH)
-year=$(printenv JWO_YEAR)
-
-echo -e "=== UPDATE JSON for $year $month  ==="
-python /tmp/parser.py
-
-exit 0
