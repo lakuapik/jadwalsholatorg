@@ -14,7 +14,7 @@ from lxml import html
 from datetime import datetime
 
 tz = pytz.timezone('Asia/Jakarta')
-base_url = 'https://www.jadwalsholat.org/adzan/monthly.php'
+base_url = 'https://jadwalsholat.org/jadwal-sholat/monthly.php'
 
 def strip_lower(str):
 
@@ -26,8 +26,8 @@ def get_cities() :
     first_page = requests.get(base_url)
     first_page_doc = html.fromstring(first_page.content)
 
-    city_ids = first_page_doc.xpath('//select[@name="kota"]/option/@value')
-    city_names = first_page_doc.xpath('//select[@name="kota"]/option/text()')
+    city_ids = first_page_doc.xpath('//select[@id="town-select"]/option/@value')
+    city_names = first_page_doc.xpath('//select[@id="town-select"]/option/text()')
     city_names = [strip_lower(d) for d in city_names]
 
     return dict(zip(city_ids, city_names))
@@ -47,7 +47,7 @@ def get_adzans(city_id, month = '', year = '') :
 
     doc = html.fromstring(page.content)
 
-    rows = doc.xpath('//tr[contains(@class, "table_light") or contains(@class, "table_dark") or contains(@class, "table_highlight")]')
+    rows = doc.xpath('//tr[contains(@class, "table-row-striped")]')
 
     result = []
 
