@@ -55,14 +55,14 @@ def get_adzans(city_id, month = '', year = '') :
         data = row.xpath('td//text()')
         result.append({
             'tanggal': '{}-{}-{}'.format(year, month, data[0]),
-            'imsyak': data[1],
-            'shubuh': data[2],
-            'terbit': data[3],
-            'dhuha': data[4],
-            'dzuhur': data[5],
-            'ashr': data[6],
-            'magrib': data[7],
-            'isya': data[8]
+            'imsyak': data[3],
+            'shubuh': data[4],
+            'terbit': data[5],
+            'dhuha': data[6],
+            'dzuhur': data[7],
+            'ashr': data[8],
+            'magrib': data[9],
+            'isya': data[10]
         })
 
     return result
