@@ -26,8 +26,8 @@ def get_cities() :
     first_page = requests.get(base_url)
     first_page_doc = html.fromstring(first_page.content)
 
-    city_ids = first_page_doc.xpath('//select[@id="town-select"]/option/@value')
-    city_names = first_page_doc.xpath('//select[@id="town-select"]/option/text()')
+    city_ids = first_page_doc.xpath('//select[@class="town-select"]/option/@value')
+    city_names = first_page_doc.xpath('//select[@class="town-select"]/option/text()')
     city_names = [strip_lower(d) for d in city_names]
 
     return dict(zip(city_ids, city_names))
