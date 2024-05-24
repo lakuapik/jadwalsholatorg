@@ -26,8 +26,8 @@ def get_cities() :
     first_page = requests.get(base_url)
     first_page_doc = html.fromstring(first_page.content)
 
-    city_ids = first_page_doc.xpath('//select[@class="town-select"]/option/@value')
-    city_names = first_page_doc.xpath('//select[@class="town-select"]/option/text()')
+    city_ids = first_page_doc.xpath('//select[@class="inputcity"]/option/@value')
+    city_names = first_page_doc.xpath('//select[@class="inputcity"]/option/text()')
     city_names = [strip_lower(d) for d in city_names]
 
     return dict(zip(city_ids, city_names))
@@ -47,7 +47,7 @@ def get_adzans(city_id, month = '', year = '') :
 
     doc = html.fromstring(page.content)
 
-    rows = doc.xpath('//tr[contains(@class, "table-row-striped")]')
+    rows = doc.xpath('//tr[contains(@class, "table_light") or contains(@class, "table_dark") or contains(@class, "table_highlight")]')
 
     result = []
 
@@ -55,14 +55,14 @@ def get_adzans(city_id, month = '', year = '') :
         data = row.xpath('td//text()')
         result.append({
             'tanggal': '{}-{}-{}'.format(year, month, data[0].replace(' ','')),
-            'imsyak': data[3],
-            'shubuh': data[4],
-            'terbit': data[5],
-            'dhuha': data[6],
-            'dzuhur': data[7],
-            'ashr': data[8],
-            'magrib': data[9],
-            'isya': data[10]
+            'imsyak': data[1],
+            'shubuh': data[2],
+            'terbit': data[3],
+            'dhuha': data[4],
+            'dzuhur': data[5],
+            'ashr': data[6],
+            'magrib': data[7],
+            'isya': data[8]
         })
 
     return result
@@ -116,14 +116,14 @@ def main():
 
     print('\n It took', time.time()-start, 'seconds.')
 
-    print("\n Current working dir:")
+    print("\n\n Current working dir:")
     print(os.getcwd())
 
-    print("\n List dir:")
+    print("\n\n List dir:")
     print(os.listdir(os.getcwd()))
 
-    print("\n Git status:")
-    print(os.system('git status'))
+    print("\n\n Git status:")
+    print(os.system('git status --porcelain'))
 
 if __name__ == "__main__":
     main()
